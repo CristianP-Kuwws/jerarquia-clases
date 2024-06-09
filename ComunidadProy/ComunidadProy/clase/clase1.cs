@@ -1,27 +1,16 @@
-﻿using System;
+using System;
 using Excepcion.CM;
-
-namespace Excepcion
-{
-    public class ExcepcionComunidad : Exception
-    {
-        public ExcepcionComunidad(string mensaje) : base(mensaje) { }
-
-        public class ExcepcionNula : ExcepcionComunidad
-        {
-            public ExcepcionNula(string mensaje) : base(mensaje) { }
-        }
-    }
-}
-
 namespace ComunidadOBJ
 {
     public abstract class MiembroDeLaComunidad
     {
+        #region "DatosPersonales"
         private string _nombre;
         private string _apellido;
         private int _edad;
+        #endregion
 
+        #region "Propiedades De Datos"
         public string Nombre
         {
             get { return _nombre; }
@@ -68,15 +57,22 @@ namespace ComunidadOBJ
                 _edad = value;
             }
         }
+        #endregion
 
+        #region "Constructor"
         public MiembroDeLaComunidad(string nombre, string apellido, int edad)
         {
             Nombre = nombre ?? throw new ExcepcionComunidad.ExcepcionNula($"{nameof(nombre)} no puede ser nulo.");
             Apellido = apellido ?? throw new ExcepcionComunidad.ExcepcionNula($"{nameof(apellido)} no puede ser nulo.");
             Edad = edad;
         }
+        #endregion
 
+        #region "Polimorfismo" 
         public abstract void MostrarInformacion();
+        #endregion
+
+        #region "MiembrosDeLaComunidad (Herencias)"
 
         public class Empleado : MiembroDeLaComunidad
         {
@@ -196,6 +192,8 @@ namespace ComunidadOBJ
                 Console.WriteLine($"Asignatura: {Asignatura}");
             }
         }
+        #endregion
+
     }
 
     public class Inicio
@@ -239,3 +237,4 @@ namespace ComunidadOBJ
         }
     }
 }
+
